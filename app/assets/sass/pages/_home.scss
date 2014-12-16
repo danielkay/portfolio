@@ -1,0 +1,78 @@
+.navbar-static-top {
+    background-color: rgba(240,240,240,0.9);
+    margin-bottom: 0;
+    border-width: 0;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+}
+
+#pageContent {
+    width: 100%;
+}
+
+#pageContent > .container {
+    height: 100vh;
+    padding-top: 60px;
+}
+
+#pageContent .jumbotron.header-image {
+    background: url('../img/mixer.svg');
+    background-size: auto 200vh;
+    padding-top: 100px;
+    height: 100vh;
+}
+
+#pageContent > .jumbotron.header-image > .scroll-hint {
+    position: absolute;
+    bottom: 1em;
+    width: 100%;
+    text-align: center;
+    opacity: 0.4
+}
+
+@media (max-height: 768px) {
+    #pageContent .jumbotron.header-image {
+        background-size: 200vw auto;
+        padding-top: 100px;
+        height: 100vh;
+    }
+} 
+
+#pageContent .jumbotron {
+    /* background: $primary; */
+    color: black;
+    margin-bottom: 0;
+}
+
+#pageContent .jumbotron__header,
+.jumbotron h1 {
+    font-weight: bold;
+    opacity: 0.4;
+    color: black;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+#pageContent .jumbotron__body {
+    max-width: 80%;
+    margin-bottom: 0;
+    line-height: 1.6em;
+    opacity: 0.6;
+}
+
+#pageContent .jumbotron__header, .jumbotron h1 {
+    font-weight: bolder;
+}
+
+#pageContent h2 {
+    margin-bottom: 20px;
+}
+
+#pageContent .steps {
+    max-width: 80%;
+    padding-left: 0;
+    list-style: none;
+}

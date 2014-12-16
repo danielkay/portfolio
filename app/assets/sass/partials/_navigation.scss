@@ -1,0 +1,14 @@
+.nav li {
+	cursor: pointer;
+}
+
+.nav li:hover,
+.nav li > a.active {
+	background: $primary;
+}
+
+.navbar-avatar {
+	border-radius: 999px;
+	margin: -11px 10px -10px 0;
+	padding: 0;
+}

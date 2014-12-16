@@ -1,0 +1,40 @@
+	<!-- Static navbar -->
+	<nav data-ng-controller="menuController" class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a data-ui-sref="home" data-ui-sref-active="active">Home</a></li>
+					<li><a data-ui-sref="blog" data-ui-sref-active="active">Blog</a></li>
+					<li><a data-ui-sref="projects" data-ui-sref-active="active">Projects</a></li>
+				</ul>
+				<ul data-ng-show="$root.currentUser" class="nav navbar-nav navbar-right">
+					<li class="dropdown" data-dropdown>
+						<a href="#" class="dropdown-toggle" data-dropdown-toggle>
+            				<img src="https://www.gravatar.com/avatar/{{ $root.currentUser.email | gravatar }}?s=35" height="35" width="35" class="navbar-avatar">
+							{{ $root.currentUser.name }} <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#" data-ui-sref="dashboard"><i class="fa fa-btn fa-home"></i>Dashboard</a>
+							</li>
+							<li>
+								<a href="#" data-ui-sref="logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul data-ng-show="!$root.currentUser" class="nav navbar-nav navbar-right">
+					<li><a data-ui-sref="login"><i class="fa fa-btn fa-sign-in"></i>Login</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div id="pageContent" data-ui-view></div>

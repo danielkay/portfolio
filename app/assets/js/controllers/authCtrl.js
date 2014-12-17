@@ -15,10 +15,11 @@ angular.module('authCtrl', [])
         };
     })
     .controller('logoutController', function($scope, $rootScope, $state, AUTH_EVENTS, Authenticate, Session) {
-        Session.destroy();
-        $rootScope.currentUser = null;
-        $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-        $state.go('home');
+        Authenticate.logout().then(function() {
+            $rootScope.currentUser = null;
+            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+            $state.go('home');
+        });
     })
     .controller('dashboardController', function($scope) {
         // ...

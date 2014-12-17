@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => $_ENV['MYSQL_ADDON_HOST'],
-			'database'  => $_ENV['MYSQL_ADDON_DB'],
-			'username'  => $_ENV['MYSQL_ADDON_USER'],
-			'password'  => $_ENV['MYSQL_ADDON_PASSWORD'],
+			'host'      => $_SERVER['MYSQL_ADDON_HOST'],
+			'database'  => $_SERVER['MYSQL_ADDON_DB'],
+			'username'  => $_SERVER['MYSQL_ADDON_USER'],
+			'password'  => $_SERVER['MYSQL_ADDON_PASSWORD'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

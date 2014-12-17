@@ -16,11 +16,11 @@ Route::get('/', function()
 	return View::make('index');
 });
 
-Route::group(['prefix' => 'service'], function($router) {
+Route::group(['prefix' => 'service'], function() {
 	Route::resource('authenticate', 'AuthController');
 });
 
-Route::group(['prefix' => 'api'], function($router)
+Route::group(['prefix' => 'api'], function()
 {
     Route::resource('blog', 'BlogController',
     	array('only' => array('index','store','show','destroy')));

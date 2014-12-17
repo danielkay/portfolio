@@ -373,7 +373,6 @@ angular.module('authService', [])
 		var authService = {};
 
 		authService.login = function (credentials) {
-			console.log(credentials);
 			return $http
 				.post('/service/authenticate/', credentials)
 				.then(function (res) {

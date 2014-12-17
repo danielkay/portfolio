@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => $_SERVER['SITE_URL'],
+	'url' => getenv('SITE_URL'),
 	// 'url' => 'http://localhost',
 
 	/*

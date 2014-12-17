@@ -1,7 +1,4 @@
-var portfolioApp = angular.module('portfolioApp',
-	['mainCtrl','blogCtrl','homeCtrl','authCtrl','projectCtrl','mainDirectives',
-	'projectDirectives','authService','blogService','projectService',
-	'ui.bootstrap.dropdown','ui.router','ngMd5','ngResource','ngSanitize'])
+var portfolioApp = angular.module('portfolioApp', ['mainCtrl','blogCtrl','homeCtrl','authCtrl','projectCtrl','mainDirectives','projectDirectives','authService','blogService','projectService','sessionService', 'ui.bootstrap.dropdown','ui.router','ngMd5','ngResource','ngSanitize'])
 	.config(function($httpProvider) {
         var interceptor = ['$location', '$q', '$injector', function($location, $q, $injector) {
 		    function success(response) {
@@ -31,10 +28,20 @@ var portfolioApp = angular.module('portfolioApp',
 				return $injector.get('AuthInterceptor');
 			}
 		]);
+    }).run(function ($rootScope, Session) {
+		function init() {
+			if (Session.get("auth")) {
+				$rootScope.currentUser = {};
+				$rootScope.currentUser.id = Session.get("userId");
+				$rootScope.currentUser.name = Session.get("userName");
+				$rootScope.currentUser.email = Session.get("userEmail");
+			}
+		}
+		 
+		init();
     });
  //    .run(function ($rootScope, AUTH_EVENTS, Authenticate) {
 	// 	$rootScope.$on('$stateChangeStart', function (event, next) {
-	// 		console.log(next);
 	// 		var authorizedRoles = next.data.authorizedRoles;
 	// 		if (!Authenticate.isAuthorized(authorizedRoles)) {
 	// 			event.preventDefault();
@@ -65,10 +72,11 @@ angular.module('authCtrl', [])
         };
     })
     .controller('logoutController', function($scope, $rootScope, $state, AUTH_EVENTS, Authenticate, Session) {
-        Session.destroy();
-        $rootScope.currentUser = null;
-        $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-        $state.go('home');
+        Authenticate.logout().then(function() {
+            $rootScope.currentUser = null;
+            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+            $state.go('home');
+        });
     })
     .controller('dashboardController', function($scope) {
         // ...
@@ -376,14 +384,29 @@ angular.module('authService', [])
 			return $http
 				.post('/service/authenticate', credentials)
 				.then(function (res) {
-					console.log(res);
-					Session.create(res.data.id, res.data.user.id, res.data.user.email, res.data.user.role);
+					Session.set('auth', true);
+					Session.set('userId', res.data.user.id);
+					Session.set('userName', res.data.user.name);
+					Session.set('userEmail', res.data.user.email);
+
 					return res.data.user;
 				});
 		};
 
+		authService.logout = function () {
+			return $http
+				.get('/service/authenticate').then(function() {
+			        Session.unset('auth');
+			        Session.unset('userId');
+			        Session.unset('userName');
+			        Session.unset('userEmail');
+			        
+			        return true;
+			    });
+		};
+
 		authService.isAuthenticated = function () {
-			return !!Session.userId;
+			return !!Session.get('auth');
 		};
 
 		authService.isAuthorized = function (authorizedRoles) {
@@ -407,22 +430,22 @@ angular.module('authService', [])
 				return $q.reject(response);
 			}
 		};
-	})
-	.service('Session', function ($window) {
-		this.create = function (sessionId, userId, userEmail, userRole) {
-			this.id = sessionId;
-			this.userId = userId;
-			this.userEmail = userEmail;
-			this.userRole = userRole;
-		};
-		this.destroy = function () {
-			this.id = null;
-			this.userId = null;
-			this.userEmail = null;
-			this.userRole = null;
-		};
-		return this;
 	});
+	// .service('Session', function ($window) {
+	// 	this.create = function (sessionId, userId, userEmail, userRole) {
+	// 		this.id = sessionId;
+	// 		this.userId = userId;
+	// 		this.userEmail = userEmail;
+	// 		this.userRole = userRole;
+	// 	};
+	// 	this.destroy = function () {
+	// 		this.id = null;
+	// 		this.userId = null;
+	// 		this.userEmail = null;
+	// 		this.userRole = null;
+	// 	};
+	// 	return this;
+	// });
 angular.module('blogService', [])
 	.factory('Blog', function($http) {
 		return {
@@ -464,6 +487,20 @@ angular.module('projectService', [])
 			},
 			destroy : function(id) {
 				return $http.delete('/api/project/' + id);
+			}
+		}
+	});
+angular.module('sessionService', [])
+	.factory('Session', function() {
+		return {
+			get : function(key) {
+				return sessionStorage.getItem(key);
+			},
+			set : function(key, val) {
+				return sessionStorage.setItem(key, val);
+			},
+			unset : function(key) {
+				return sessionStorage.removeItem(key);
 			}
 		}
 	});

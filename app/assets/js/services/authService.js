@@ -7,6 +7,7 @@ angular.module('authService', [])
 			return $http
 				.post('/service/authenticate/', credentials)
 				.then(function (res) {
+					console.log(res);
 					Session.create(res.data.id, res.data.user.id, res.data.user.email, res.data.user.role);
 					return res.data.user;
 				});

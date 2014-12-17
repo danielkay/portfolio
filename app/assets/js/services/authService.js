@@ -3,11 +3,21 @@ angular.module('authService', [])
 		var authService = {};
 
 		authService.login = function (credentials) {
-			return $http
-				.post('/service/authenticate/', credentials)
-				.then(function (res) {
-					Session.create(res.data.id, res.data.user.id, res.data.user.email, res.data.user.role);
-					return res.data.user;
+			// return $http
+			// 	.post('/service/authenticate/', credentials)
+			// 	.then(function (res) {
+			// 		Session.create(res.data.id, res.data.user.id, res.data.user.email, res.data.user.role);
+			// 		return res.data.user;
+			// 	});
+			return $.ajax({
+					type: 'POST',
+					url: '/service/authenticate/',
+					data: credentials,
+					async: false,
+					success: function(res) {
+						Session.create(res.data.id, res.data.user.id, res.data.user.email, res.data.user.role);
+						return res.data.user;
+					}
 				});
 		};
 

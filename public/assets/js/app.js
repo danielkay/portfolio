@@ -1,4 +1,4 @@
-var portfolioApp = angular.module('portfolioApp', ['mainCtrl','blogCtrl','homeCtrl','authCtrl','projectCtrl','mainDirectives','projectDirectives','authService','blogService','projectService','sessionService', 'ui.bootstrap.dropdown','ui.router','ngMd5','ngResource','ngSanitize'])
+var portfolioApp = angular.module('portfolioApp', ['mainCtrl', 'blogCtrl', 'homeCtrl', 'authCtrl', 'projectCtrl', 'mainDirectives', 'projectDirectives', 'authService', 'blogService', 'projectService', 'sessionService', 'skrollrSvc', 'ui.bootstrap.dropdown', 'ui.router', 'ngMd5', 'ngResource', 'ngSanitize'])
 	.config(function($httpProvider) {
         var interceptor = ['$location', '$q', '$injector', function($location, $q, $injector) {
 		    function success(response) {
@@ -230,17 +230,6 @@ angular.module('projectCtrl', [])
 		}
 	});
 angular.module('mainDirectives', [])
-	.directive('skrollr-init', function($scope) {
-		return {
-			restrict: 'A',
-			scope: true,
-			link: function() {
-				skrollr.init();
-				$scope.$apply();
-				// skrollr.get().refresh();
-			}
-		};
-	})
 /**
  * A directive to embed a Disqus comments widget on your AngularJS page.
  *
@@ -250,6 +239,28 @@ angular.module('mainDirectives', [])
  * Copyright Michael Bromley 2014
  * Available under the MIT license.
  */
+    .directive('skrollrInit', [ 'SkrollrService', 
+        function(SkrollrService){
+            return {
+                link: function(scope, element, attrs){
+                    SkrollrService.skrollr().then(function(skrollr){
+                        skrollr.refresh();
+                    });
+
+                   //This will watch for any new elements being added as children to whatever element this directive is placed on. If new elements are added, Skrollr will be refreshed (pulling in the new elements
+                   scope.$watch(
+                       function () { return element[0].childNodes.length; },
+                       function (newValue, oldValue) {
+                       if (newValue !== oldValue) {
+                           SkrollrService.skrollr().then(function(skrollr){
+                               skrollr.refresh();
+                           });
+                       }
+                   });
+                }
+            };
+        }
+    ])
 	.directive('dirDisqus', ['$window', function($window) {
         return {
             restrict: 'A',
@@ -504,3 +515,42 @@ angular.module('sessionService', [])
 			}
 		}
 	});
+angular.module('skrollrSvc', [])
+	.service('SkrollrService', ['$document', '$q', '$rootScope', '$window', 
+	    function($document, $q, $rootScope, $window){
+	        var defer = $q.defer();
+
+	        function onScriptLoad() {
+	            // Load client in the browser
+	            $rootScope.$apply(function() { 
+	                var s = $window.skrollr.init({
+	                        forceHeight: false
+	                    });
+	                defer.resolve(s); 
+	            });
+	        }
+
+	        // Create a script tag with skrollr as the source
+	        // and call our onScriptLoad callback when it
+	        // has been loaded
+
+	        var scriptTag = $document[0].createElement('script');
+	        scriptTag.type = 'text/javascript'; 
+	        scriptTag.async = true;
+	        scriptTag.src = 'assets/vendor/bower-skrollr/skrollr.min.js';
+
+	        scriptTag.onreadystatechange = function () {
+	            if (this.readyState === 'complete') onScriptLoad();
+	        };
+
+	        scriptTag.onload = onScriptLoad;
+
+	        var s = $document[0].getElementsByTagName('body')[0];
+	        s.appendChild(scriptTag);
+
+	        return {
+	            skrollr: function() { return defer.promise; }
+	        };
+
+	    }
+	 ]);

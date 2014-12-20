@@ -36,7 +36,7 @@
 	<script src="assets/vendor/angular-sanitize/angular-sanitize.js"></script>
 	<script src="assets/vendor/angular-ui-router/release/angular-ui-router.js"></script>
 	<!--script src="assets/vendor/angular-ui-router.stateHelper/statehelper.js"></script-->
-	<script src="assets/vendor/bower-skrollr/skrollr.js"></script>
+	<!--script src="assets/vendor/bower-skrollr/skrollr.js"></script-->
 	
 	<!--script src="/assets/js/lib.js"></script-->
 	<script src="/assets/js/app.js"></script>

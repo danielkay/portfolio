@@ -7,3 +7,11 @@
 @import "pages/auth";
 @import "pages/home";
 @import "pages/projects";
+
+html, body {
+	overflow-x: hidden;
+}
+
+body {
+	position: relative;
+}

@@ -5405,6 +5405,7 @@ button.close {
   padding-top: 60px; }
 
 #pageContent .jumbotron.header-image {
+  position: relative;
   padding-top: 100px;
   height: 100vh;
   width: 100vw;

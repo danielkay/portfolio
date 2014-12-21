@@ -5397,30 +5397,31 @@ button.close {
   width: 100vw; }
 
 #pageContent {
-  width: 100%; }
+  width: 100vw; }
 
 #pageContent > .container {
+  width: 100vw;
   height: 100vh;
   padding-top: 60px; }
 
 #pageContent .jumbotron.header-image {
-  background: url("../img/mixer.svg");
-  background-size: auto 200vh;
   padding-top: 100px;
-  height: 100vh; }
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  background: url("../img/mixer.svg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
 
 #pageContent > .jumbotron.header-image > .scroll-hint {
   position: absolute;
   bottom: 1em;
-  width: 100%;
+  width: 100vw;
   text-align: center;
   opacity: 0.4; }
 
-@media (max-height: 768px) {
-  #pageContent .jumbotron.header-image {
-    background-size: 200vw auto;
-    padding-top: 100px;
-    height: 100vh; } }
 #pageContent .jumbotron {
   /* background: $primary; */
   color: black;
@@ -5470,5 +5471,11 @@ button.close {
 
 #pageContent > .container > div.col-lg-12 > .project > div > h3 {
   margin-top: 10px; }
+
+html, body {
+  overflow-x: hidden; }
+
+body {
+  position: relative; }
 
 /*# sourceMappingURL=app.css.map */

@@ -27,7 +27,7 @@
 <body data-ng-app="portfolioApp" data-ng-controller="mainController">
 	<div data-ui-view></div>
 
-	<script src="assets/vendor/jquery/dist/jquery.js"></script>
+	<!--script src="assets/vendor/jquery/dist/jquery.js"></script-->
 	<script src="assets/vendor/angular/angular.js"></script>
 	<script src="assets/vendor/angular-bootstrap/ui-bootstrap.js"></script>
 	<script src="assets/vendor/angular-md5/angular-md5.js"></script>

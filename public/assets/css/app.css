@@ -5397,12 +5397,14 @@ button.close {
   width: 100vw; }
 
 #pageContent {
-  width: 100vw; }
+  width: 100vw;
+  height: 100%; }
 
 #pageContent > .container {
   width: 100vw;
-  min-height: 100vh;
-  padding-top: 60px; }
+  height: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px; }
 
 #pageContent .jumbotron.header-image {
   position: relative;
@@ -5464,7 +5466,6 @@ button.close {
 
 #pageContent .latest-container .latest-column .column-body {
   background-color: #f2f2f2;
-  margin-bottom: 10px;
   padding: 5px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -5477,6 +5478,14 @@ button.close {
   #pageContent .latest-container .latest-column .column-body .recent-item:hover {
     cursor: pointer;
     background: #e6e6e6; }
+
+#pageContent > footer {
+  width: 100vw;
+  height: 80px;
+  background: #f2f2f2;
+  font-size: 1em;
+  line-height: 60px;
+  text-align: center; }
 
 #pageContent > .container > div.col-lg-12 {
   width: 100%;
@@ -5550,15 +5559,5 @@ html, body {
 
 body {
   position: relative; }
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
-  height: 120px;
-  background: #f2f2f2;
-  font-size: 1em;
-  line-height: 80px;
-  text-align: center; }
 
 /*# sourceMappingURL=app.css.map */

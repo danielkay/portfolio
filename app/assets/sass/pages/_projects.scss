@@ -11,11 +11,17 @@
 }
 
 #pageContent > .container > div.col-lg-12 > .project > div {
-    background: $primary;
+    background: lighten($secondary, 5%);
+}
+
+#pageContent > .container > div.col-lg-12 > .project {
+    background: transparent;
+
+    transition: background 0.4s ease;
 }
 
 #pageContent > .container > div.col-lg-12 > .project:hover {
-    background: darken($primary, 10%);
+    background: $secondary;
     cursor: pointer;
 }
 

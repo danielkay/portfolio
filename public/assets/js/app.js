@@ -1,4 +1,4 @@
-var portfolioApp = angular.module('portfolioApp', ['mainCtrl', 'blogCtrl', 'homeCtrl', 'authCtrl', 'projectCtrl', 'mainDirectives', 'projectDirectives', 'authService', 'blogService', 'projectService', 'sessionService', 'skrollrSvc', 'ui.bootstrap.dropdown', 'ui.router', 'ngMd5', 'ngResource', 'ngSanitize'])
+var portfolioApp = angular.module('portfolioApp', ['mainCtrl', 'blogCtrl', 'homeCtrl', 'authCtrl', 'projectCtrl', 'tutorialCtrl', 'mainDirectives', 'projectDirectives', 'authService', 'blogService', 'latestService', 'projectService', 'tutorialService', 'sessionService', 'skrollrSvc', 'ui.bootstrap.dropdown', 'ui.router', 'ngMd5', 'ngResource', 'ngSanitize', 'ngQuill'])
 	.config(function($httpProvider) {
         var interceptor = ['$location', '$q', '$injector', function($location, $q, $injector) {
 		    function success(response) {
@@ -129,8 +129,22 @@ angular.module('blogCtrl', [])
 
 	});
 angular.module('homeCtrl', [])
-	.controller('homeController', function($scope, $http, $state) {
+	.controller('homeController', function($scope, $http, $state, Latest) {
 		
+		$scope.posts = {};
+		$scope.projects = {};
+		$scope.tutorials = {};
+
+		$scope.loading = true;
+
+		Latest.get()
+			.success(function(data) {
+				$scope.posts = data.posts;
+				$scope.projects = data.projects;
+				$scope.tutorials = data.tutorials;
+
+				$scope.loading = false;
+			});
 	});
 angular.module('mainCtrl', [])
 	.controller('mainController', function($rootScope, $scope, $http, $state, USER_ROLES, Authenticate) {
@@ -179,6 +193,10 @@ angular.module('projectCtrl', [])
 				$scope.loading = false;
 			});
 
+		$scope.newProjectForm = function() {
+			$scope.showForm = !$scope.showForm;
+		}
+
 		$scope.submitProject = function() {
 			$scope.loading = true;
 
@@ -209,25 +227,76 @@ angular.module('projectCtrl', [])
 				});
 		}
 	})
-	.controller('projectDetailController', function($scope, $http, Project) {
+	.controller('projectDetailController', function($scope, $sce, $http, $state, Project) {
 		$scope.projectData = {};
 
 		$scope.loading = true;
 
-		Project.show(id)
+		Project.show($state.params.projectId)
 			.success(function(data) {
 				$scope.projectData = data;
+				$scope.htmlContent = $sce.trustAsHtml(data.description);
+				$scope.loading = false;
+			});
+	});
+angular.module('tutorialCtrl', [])
+	.controller('tutorialListController', function($scope, $http, $state, Tutorial) {
+		
+		$scope.tutorialData = {};
+
+		$scope.loading = true;
+
+		Tutorial.get()
+			.success(function(data) {
+				$scope.tutorials = data;
 				$scope.loading = false;
 			});
 
-		$scope.deleteProject = function(id) {
+		$scope.newTutorialForm = function() {
+			$scope.showForm = !$scope.showForm;
+		}
+
+		$scope.submitTutorial = function() {
 			$scope.loading = true;
 
-			Project.destroy(id)
+			Tutorial.save($scope.tutorialData)
 				.success(function(data) {
-					$location.path( "/projects" );
+					Tutorial.get()
+						.success(function(getData) {
+							$scope.tutorials = getData;
+							$scope.loading = false;
+							$scope.tutorialData = {};
+						})
+				})
+				.error(function(data) {
+					console.log(data);
+				});
+		};
+
+		$scope.deleteTutorial = function(id) {
+			$scope.loading = true;
+
+			Tutorial.destroy(id)
+				.success(function(data) {
+					Tutorial.get()
+						.success(function(getData) {
+							$scope.tutorials = getData;
+							$scope.loading = false;
+						});
 				});
 		}
+	})
+	.controller('tutorialDetailController', function($scope, $sce, $http, $state, Tutorial) {
+		$scope.tutorialData = {};
+
+		$scope.loading = true;
+
+		Tutorial.show($state.params.tutorialId)
+			.success(function(data) {
+				$scope.tutorialData = data;
+				$scope.htmlContent = $sce.trustAsHtml(data.content);
+				$scope.loading = false;
+			});
 	});
 angular.module('mainDirectives', [])
 /**
@@ -261,6 +330,16 @@ angular.module('mainDirectives', [])
             };
         }
     ])
+    .directive('stopEvent', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                element.bind('click', function (e) {
+                    e.stopPropagation();
+                });
+            }
+        };
+     })
 	.directive('dirDisqus', ['$window', function($window) {
         return {
             restrict: 'A',
@@ -328,6 +407,31 @@ angular.module('projectDirectives', [])
 		};
 	});
 portfolioApp
+    .filter('cut', function () {
+        return function (value, wordwise, max, tail) {
+            if (!value) return '';
+
+            max = parseInt(max, 10);
+            if (!max) return value;
+            if (value.length <= max) return value;
+
+            value = value.substr(0, max);
+            if (wordwise) {
+                var lastspace = value.lastIndexOf(' ');
+                if (lastspace != -1) {
+                    value = value.substr(0, lastspace);
+                }
+            }
+
+            return value + (tail || ' …');
+        };
+    })
+    .filter('htmlToPlaintext', function() {
+        return function(text) {
+            return String(text).replace(/<[^>]+>/gm, '');
+        }
+    });
+portfolioApp
     .config(function($locationProvider, $stateProvider, USER_ROLES){
         $locationProvider.html5Mode(true);
 
@@ -339,6 +443,7 @@ portfolioApp
             .state('home', {
                 url: '/',
                 templateUrl: 'views/home.html',
+                controller: 'homeController',
                 parent: 'root'
             })
             .state('blog', {
@@ -360,6 +465,18 @@ portfolioApp
             .state('projects.detail', {
                 url: '/projects/{projectId}',
                 templateUrl: '/views/projectDetail.html',
+                controller: 'projectDetailController',
+                parent: 'root'
+            })
+            .state('tutorials', {
+                url: '/tutorials',
+                templateUrl: '/views/tutorials.html',
+                parent: 'root'
+            })
+            .state('tutorials.detail', {
+                url: '/tutorials/{tutorialId}',
+                templateUrl: '/views/tutorialDetail.html',
+                controller: 'tutorialDetailController',
                 parent: 'root'
             })
             .state('login', {
@@ -479,6 +596,17 @@ angular.module('blogService', [])
 			}
 		}
 	});
+angular.module('latestService', [])
+	.factory('Latest', function($http) {
+		return {
+			get : function() {
+				return $http.get('/api/latest');
+			},
+			show : function(categpry) {
+				return $http.get('/api/project/' + category);
+			}
+		}
+	});
 angular.module('projectService', [])
 	.factory('Project', function($http) {
 		return {
@@ -523,10 +651,12 @@ angular.module('skrollrSvc', [])
 	        function onScriptLoad() {
 	            // Load client in the browser
 	            $rootScope.$apply(function() { 
-	                var s = $window.skrollr.init({
+	                if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
+	                	var s = $window.skrollr.init({
 	                        forceHeight: false
 	                    });
-	                defer.resolve(s); 
+	                	defer.resolve(s);
+	                }
 	            });
 	        }
 
@@ -554,3 +684,25 @@ angular.module('skrollrSvc', [])
 
 	    }
 	 ]);
+angular.module('tutorialService', [])
+	.factory('Tutorial', function($http) {
+		return {
+			get : function() {
+				return $http.get('/api/tutorial');
+			},
+			show : function(id) {
+				return $http.get('/api/tutorial/' + id);
+			},
+			save : function(tutorialData) {
+				return $http({
+					method: 'POST',
+					url: '/api/tutorial',
+					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					data: $.param(tutorialData)
+				});
+			},
+			destroy : function(id) {
+				return $http.delete('/api/tutorial/' + id);
+			}
+		}
+	});

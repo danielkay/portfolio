@@ -5376,7 +5376,7 @@ button.close {
 
 .nav li:hover,
 .nav li > a.active {
-  background: #F0F0F0; }
+  background: #CCC; }
 
 .navbar-avatar {
   border-radius: 999px;
@@ -5409,7 +5409,7 @@ button.close {
   padding-top: 100px;
   height: 100vh;
   width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden;
   background: url("../img/mixer.svg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -5448,10 +5448,32 @@ button.close {
 #pageContent h2 {
   margin-bottom: 20px; }
 
-#pageContent .steps {
-  max-width: 80%;
-  padding-left: 0;
-  list-style: none; }
+#pageContent .latest-container .latest-column .column-header {
+  padding-top: 10px;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: #e6e6e6; }
+  #pageContent .latest-container .latest-column .column-header span.fa {
+    margin-top: 0;
+    margin-bottom: 0; }
+
+#pageContent .latest-container .latest-column .column-body {
+  background-color: #f2f2f2;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  min-height: 270px; }
+  #pageContent .latest-container .latest-column .column-body .recent-item {
+    margin-top: 10px;
+    padding: 5px; }
+    #pageContent .latest-container .latest-column .column-body .recent-item h3 {
+      margin-top: 0; }
+  #pageContent .latest-container .latest-column .column-body .recent-item:hover {
+    cursor: pointer;
+    background: #e6e6e6; }
 
 #pageContent > .container > div.col-lg-12 {
   width: 100%;
@@ -5464,14 +5486,61 @@ button.close {
   padding: 15px; }
 
 #pageContent > .container > div.col-lg-12 > .project > div {
-  background: #F0F0F0; }
+  background: #f2f2f2; }
+
+#pageContent > .container > div.col-lg-12 > .project {
+  background: transparent;
+  transition: background 0.4s ease; }
 
 #pageContent > .container > div.col-lg-12 > .project:hover {
-  background: #d6d6d6;
+  background: #e6e6e6;
   cursor: pointer; }
 
 #pageContent > .container > div.col-lg-12 > .project > div > h3 {
   margin-top: 10px; }
+
+#pageContent > .container > .page-header > h2 {
+  padding-right: 1em; }
+
+#pageContent > .container > div.col-lg-12 {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 20px; }
+
+#pageContent > .container > div.col-lg-12 > .tutorial,
+#pageContent > .container > div.col-lg-12 > .tutorial > div {
+  border-radius: 5px;
+  padding: 15px; }
+
+#pageContent > .container > div.col-lg-12 > .tutorial > div {
+  background: #f2f2f2; }
+
+#pageContent > .container > div.col-lg-12 > .tutorial {
+  background: transparent;
+  transition: background 0.4s ease; }
+
+#pageContent > .container > div.col-lg-12 > .tutorial:hover {
+  background: #e6e6e6;
+  cursor: pointer; }
+
+#pageContent > .container > div.col-lg-12 > .project > div > h3 {
+  margin-top: 10px; }
+
+.page-header > span.add-tutorial,
+.page-header > span.btn.back-btn {
+  position: absolute;
+  margin-top: -2em;
+  right: 0; }
+
+#content-container {
+  border: 1px solid #CCC;
+  border-radius: 5px; }
+
+#content-container > .advanced-wrapper > .toolbar.toolbar-container.ql-toolbar-container {
+  border-bottom: 1px solid #e6e6e6; }
+
+#content-container > .advanced-wrapper > .editor-container.ql-container {
+  border-top: 1px solid #e6e6e6; }
 
 html, body {
   overflow-x: hidden; }

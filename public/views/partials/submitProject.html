@@ -3,7 +3,7 @@
         <input type="text" class="form-control input-lg" name="title" data-ng-model="projectData.title" placeholder="Title">
     </div>
     <div class="form-group">
-        <textarea class="form-control" name="description" data-ng-model="projectData.description" placeholder="Description"></textarea>
+        <div data-ng-quill-editor class="quill-editor" ng-model="projectData.description" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" required="" error-class="input-error"></div>
     </div>
     <div class="form-group text-right"> 
         <button type="submit" class="btn btn-primary btn-lg">Submit</button>

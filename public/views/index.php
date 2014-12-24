@@ -14,6 +14,7 @@
 	<!-- Bootstrap CSS -->
 	<link href="/assets/css/app.css" rel="stylesheet">
 	<link href="/assets/css/vendor/font-awesome.css" rel="stylesheet">
+	<link href="/assets/vendor/quill/dist/quill.snow.css" rel="stylesheet">
 
 	<!-- Web Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -27,7 +28,7 @@
 <body data-ng-app="portfolioApp" data-ng-controller="mainController">
 	<div data-ui-view></div>
 
-	<!--script src="assets/vendor/jquery/dist/jquery.js"></script-->
+	<script src="assets/vendor/jquery/dist/jquery.js"></script>
 	<script src="assets/vendor/angular/angular.js"></script>
 	<script src="assets/vendor/angular-bootstrap/ui-bootstrap.js"></script>
 	<script src="assets/vendor/angular-md5/angular-md5.js"></script>
@@ -37,6 +38,9 @@
 	<script src="assets/vendor/angular-ui-router/release/angular-ui-router.js"></script>
 	<!--script src="assets/vendor/angular-ui-router.stateHelper/statehelper.js"></script-->
 	<!--script src="assets/vendor/bower-skrollr/skrollr.js"></script-->
+	
+	<script src="assets/vendor/quill/dist/quill.js"></script>
+	<script src="assets/vendor/ngquill/src/ng-quill.js"></script>
 	
 	<!--script src="/assets/js/lib.js"></script-->
 	<script src="/assets/js/app.js"></script>

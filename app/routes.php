@@ -22,8 +22,12 @@ Route::group(['prefix' => 'service'], function() {
 
 Route::group(['prefix' => 'api'], function()
 {
+	Route::resource('latest', 'LatestController',
+		array('only' => array('index')));
     Route::resource('blog', 'BlogController',
     	array('only' => array('index','store','show','destroy')));
     Route::resource('project', 'ProjectController',
+    	array('only' => array('index','store','show','destroy')));
+    Route::resource('tutorial', 'TutorialController',
     	array('only' => array('index','store','show','destroy')));
 });

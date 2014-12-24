@@ -1,0 +1,24 @@
+<div class="container" data-ng-controller="projectListController">
+    <div class="page-header">
+        <h2>Current and Previous Projects</h2>
+        <span data-ng-if="$root.currentUser" class="fa fa-plus fa-2x btn" data-ng-class="{'fa fa-minus fa-2x btn add-tutorial': showForm, 'fa fa-plus fa-2x btn add-tutorial': !showForm}" data-ng-click="newProjectForm()"></span>
+    </div>
+    <div data-ng-if="$root.currentUser">
+        <div class="col-xs-12">
+            <div data-ng-show="showForm" data-ng-include="'views/partials/submitProject.html'"></div>
+        </div>
+    </div>
+    <p class="text-center" data-ng-show="loading">
+        <span class="fa fa-spinner fa-5x fa-spin"></span>
+    </p>
+    <div class="col-lg-12">
+        <div class="project col-lg-4 col-md-6 col-xs-12" data-ng-hide="loading" data-ng-repeat="project in projects track by $index" data-ui-sref="projects.detail({ projectId: project.id })">
+            <div>
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description | htmlToPlaintext | cut:true:90:' ...' }}</p>
+
+                <p data-ng-if="$root.currentUser"><a class="btn" data-ng-click="deleteProject(project.id)" class="text-muted" data-stop-event>Delete</a></p>
+            </div>
+        </div>
+    </div>
+</div>

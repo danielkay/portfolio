@@ -1,0 +1,11 @@
+<form data-ng-submit="submitTutorial()">
+    <div class="form-group">
+        <input type="text" class="form-control input-lg" name="title" data-ng-model="tutorialData.title" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <div data-ng-quill-editor class="quill-editor" ng-model="tutorialData.content" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" required="" error-class="input-error"></div>
+    </div>
+    <div class="form-group text-right"> 
+        <button type="submit" data-ng-click="$parent.showForm=!$parent.showForm" class="btn btn-primary btn-lg">Submit</button>
+    </div>
+</form>

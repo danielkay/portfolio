@@ -1,0 +1,49 @@
+	<!-- Static navbar -->
+	<nav data-ng-controller="menuController" class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" data-ng-click="open=!open" class="navbar-toggle" data-ng-class="{collapsed: !open}" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div id="navbar" class="navbar-collapse" data-ng-class="{collapse: !open}">
+				<ul class="nav navbar-nav">
+					<li>
+						<a data-ng-click="open=false" data-ui-sref="home" data-ui-sref-active="active">Home</a>
+					</li>
+					<li>
+						<a data-ng-click="open=false" data-ui-sref="blog" data-ui-sref-active="active">Blog</a>
+					</li>
+					<li>
+						<a data-ng-click="open=false" data-ui-sref="projects" data-ui-sref-active="active">Projects</a>
+					</li>
+					<li>
+						<a data-ng-click="open=false" data-ui-sref="tutorials" data-ui-sref-active="active">Tutorials</a>
+					</li>
+				</ul>
+				<ul data-ng-show="$root.currentUser" class="nav navbar-nav navbar-right">
+					<li class="dropdown" data-dropdown>
+						<a href="#" class="dropdown-toggle" data-dropdown-toggle>
+            				<img src="https://www.gravatar.com/avatar/{{ $root.currentUser.email | gravatar }}?s=35" height="35" width="35" class="navbar-avatar">
+							{{ $root.currentUser.name }} <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a data-ng-click="open=false" href="#" data-ui-sref="dashboard"><i class="fa fa-btn fa-home"></i>Dashboard</a>
+							</li>
+							<li>
+								<a data-ng-click="open=false" href="#" data-ui-sref="logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul data-ng-show="!$root.currentUser" class="nav navbar-nav navbar-right">
+					<li><a data-ng-click="open=!open" data-ui-sref="login"><i class="fa fa-btn fa-sign-in"></i>Login</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div id="pageContent" data-ui-view></div>

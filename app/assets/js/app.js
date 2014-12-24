@@ -1,4 +1,4 @@
-var portfolioApp = angular.module('portfolioApp', ['mainCtrl', 'blogCtrl', 'homeCtrl', 'authCtrl', 'projectCtrl', 'mainDirectives', 'projectDirectives', 'authService', 'blogService', 'projectService', 'sessionService', 'skrollrSvc', 'ui.bootstrap.dropdown', 'ui.router', 'ngMd5', 'ngResource', 'ngSanitize'])
+var portfolioApp = angular.module('portfolioApp', ['mainCtrl', 'blogCtrl', 'homeCtrl', 'authCtrl', 'projectCtrl', 'tutorialCtrl', 'mainDirectives', 'projectDirectives', 'authService', 'blogService', 'latestService', 'projectService', 'tutorialService', 'sessionService', 'skrollrSvc', 'ui.bootstrap.dropdown', 'ui.router', 'ngMd5', 'ngResource', 'ngSanitize', 'ngQuill'])
 	.config(function($httpProvider) {
         var interceptor = ['$location', '$q', '$injector', function($location, $q, $injector) {
 		    function success(response) {

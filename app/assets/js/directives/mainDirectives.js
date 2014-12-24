@@ -30,6 +30,16 @@ angular.module('mainDirectives', [])
             };
         }
     ])
+    .directive('stopEvent', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                element.bind('click', function (e) {
+                    e.stopPropagation();
+                });
+            }
+        };
+     })
 	.directive('dirDisqus', ['$window', function($window) {
         return {
             restrict: 'A',

@@ -16,3 +16,17 @@ html, body {
 body {
 	position: relative;
 }
+
+footer {
+    position: absolute;
+    bottom: 0;
+
+    width: 100vw;
+    height: 120px;
+
+    background: lighten($secondary, 5%);
+
+    font-size: 1em;
+    line-height: 80px;
+    text-align: center;
+}

@@ -15,7 +15,7 @@
 
 #pageContent > .container {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 60px;
 }
 
@@ -71,6 +71,10 @@
     margin-bottom: 20px;
 }
 
+#pageContent .latest-container .latest-column {
+    height: 100%;
+}
+
 #pageContent .latest-container .latest-column .column-header {
     padding-top: 10px;
     text-align: center;
@@ -95,7 +99,7 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 
-    min-height: 270px;
+    height: 100%;
 
     .recent-item {
         margin-top: 10px;

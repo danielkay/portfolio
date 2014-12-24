@@ -11,6 +11,10 @@ angular.module('projectCtrl', [])
 				$scope.loading = false;
 			});
 
+		$scope.newProjectForm = function() {
+			$scope.showForm = !$scope.showForm;
+		}
+
 		$scope.submitProject = function() {
 			$scope.loading = true;
 
@@ -41,23 +45,15 @@ angular.module('projectCtrl', [])
 				});
 		}
 	})
-	.controller('projectDetailController', function($scope, $http, Project) {
+	.controller('projectDetailController', function($scope, $sce, $http, $state, Project) {
 		$scope.projectData = {};
 
 		$scope.loading = true;
 
-		Project.show(id)
+		Project.show($state.params.projectId)
 			.success(function(data) {
 				$scope.projectData = data;
+				$scope.htmlContent = $sce.trustAsHtml(data.description);
 				$scope.loading = false;
 			});
-
-		$scope.deleteProject = function(id) {
-			$scope.loading = true;
-
-			Project.destroy(id)
-				.success(function(data) {
-					$location.path( "/projects" );
-				});
-		}
 	});

@@ -1,3 +1,5 @@
 $font-family-sans-serif: "Lato", Helvetica, Arial, sans-serif;
 
-$primary: #F0F0F0;
+$primary: #CCC;
+$secondary: lighten($primary, 10%);
+$tertiary: darken($primary, 10%);

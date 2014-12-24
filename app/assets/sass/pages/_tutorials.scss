@@ -1,0 +1,54 @@
+#pageContent > .container > .page-header > h2 {
+    padding-right: 1em;
+}
+
+#pageContent > .container > div.col-lg-12 {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#pageContent > .container > div.col-lg-12 > .tutorial,
+#pageContent > .container > div.col-lg-12 > .tutorial > div {
+    border-radius: 5px;
+    padding: 15px;
+}
+
+#pageContent > .container > div.col-lg-12 > .tutorial > div {
+    background: lighten($secondary, 5%);
+}
+
+#pageContent > .container > div.col-lg-12 > .tutorial {
+    background: transparent;
+
+    transition: background 0.4s ease;
+}
+
+#pageContent > .container > div.col-lg-12 > .tutorial:hover {
+    background: $secondary;
+    cursor: pointer;
+}
+
+#pageContent > .container > div.col-lg-12 > .project > div > h3 {
+    margin-top: 10px;
+}
+
+.page-header > span.add-tutorial,
+.page-header > span.btn.back-btn {
+    position: absolute;
+    margin-top: -2em;
+    right: 0;
+}
+
+#content-container {
+	border: 1px solid $primary;
+	border-radius: 5px;
+}
+
+#content-container > .advanced-wrapper > .toolbar.toolbar-container.ql-toolbar-container {
+	border-bottom: 1px solid $secondary;
+}
+
+#content-container > .advanced-wrapper > .editor-container.ql-container {
+	border-top: 1px solid $secondary;
+}	

@@ -6,10 +6,12 @@ angular.module('skrollrSvc', [])
 	        function onScriptLoad() {
 	            // Load client in the browser
 	            $rootScope.$apply(function() { 
-	                var s = $window.skrollr.init({
+	                if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
+	                	var s = $window.skrollr.init({
 	                        forceHeight: false
 	                    });
-	                defer.resolve(s); 
+	                	defer.resolve(s);
+	                }
 	            });
 	        }
 

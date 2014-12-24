@@ -1,0 +1,18 @@
+<div class="container" data-ng-controller="projectDetailController">
+    <div class="page-header" data-ng-hide="loading">
+        <h2>{{ projectData.title }}</h2>
+        <span class="fa fa-arrow-left fa-2x btn back-btn" data-ui-sref="projects"></span>
+        
+    </div>
+    <p class="text-center" data-ng-show="loading">
+        <span class="fa fa-spinner fa-5x fa-spin"></span>
+    </p>
+    <div class="col-lg-12">
+        <div class="project-body" data-ng-hide="loading">
+            <p ng-bind-html="htmlContent"></p>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div data-dir-disqus data-disqus-shortname="danielkay" data-disqus-identifier="/projects/{{ projectData.id }}" data-disqus-url="http://laravel.local:8000/projects/{{ projectData.id }}"></div>
+    </div>
+</div>

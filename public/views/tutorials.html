@@ -3,13 +3,11 @@
         <h2>Tutorials</h2>
         <span data-ng-if="$root.currentUser" class="fa fa-plus fa-2x btn" data-ng-class="{'fa fa-minus fa-2x btn add-tutorial': showForm, 'fa fa-plus fa-2x btn add-tutorial': !showForm}" data-ng-click="newTutorialForm()"></span>
     </div>
-
     <div data-ng-if="$root.currentUser">
         <div class="col-xs-12">
             <div data-ng-show="showForm" data-ng-include="'views/partials/submitTutorial.html'"></div>
         </div>
     </div>
-
     <p class="text-center" data-ng-show="loading">
         <span class="fa fa-spinner fa-5x fa-spin"></span>
     </p>
@@ -23,8 +21,4 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12">
-        <div data-dir-disqus data-disqus-shortname="danielkay" data-disqus-identifier="/tutorials/" data-disqus-url="http://laravel.local:8000/tutorials"></div>
-    </div>
-    <!--div data-ng-include="'views/partials/disqus.html'"></div-->
 </div>

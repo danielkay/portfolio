@@ -12,6 +12,7 @@ class BlogController extends \BaseController {
 		return Response::json(Blog::get());
 	}
 
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -21,6 +22,7 @@ class BlogController extends \BaseController {
 	{
 		//
 	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -37,6 +39,7 @@ class BlogController extends \BaseController {
 		return Response::json(['success' => true]);
 	}
 
+
 	/**
 	 * Display the specified resource.
 	 *
@@ -47,6 +50,7 @@ class BlogController extends \BaseController {
 	{
 		return Response::json(Blog::get($id));
 	}
+
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -59,6 +63,7 @@ class BlogController extends \BaseController {
 		//
 	}
 
+
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -69,6 +74,7 @@ class BlogController extends \BaseController {
 	{
 		//
 	}
+
 
 	/**
 	 * Remove the specified resource from storage.
@@ -82,5 +88,6 @@ class BlogController extends \BaseController {
 
 		return Response::json(['success' => true]);
 	}
+
 
 }

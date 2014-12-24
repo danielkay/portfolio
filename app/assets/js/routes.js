@@ -10,6 +10,7 @@ portfolioApp
             .state('home', {
                 url: '/',
                 templateUrl: 'views/home.html',
+                controller: 'homeController',
                 parent: 'root'
             })
             .state('blog', {
@@ -31,6 +32,18 @@ portfolioApp
             .state('projects.detail', {
                 url: '/projects/{projectId}',
                 templateUrl: '/views/projectDetail.html',
+                controller: 'projectDetailController',
+                parent: 'root'
+            })
+            .state('tutorials', {
+                url: '/tutorials',
+                templateUrl: '/views/tutorials.html',
+                parent: 'root'
+            })
+            .state('tutorials.detail', {
+                url: '/tutorials/{tutorialId}',
+                templateUrl: '/views/tutorialDetail.html',
+                controller: 'tutorialDetailController',
                 parent: 'root'
             })
             .state('login', {
